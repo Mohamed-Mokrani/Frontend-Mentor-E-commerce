@@ -33,13 +33,11 @@ const Home = () => {
   }, [quantity]);
 
   const [addCart, setaddCart] = useState(false);
-  useEffect(() => {
-    if (quantity === 0) {
-      setaddCart(false);
-    }
-  }, [quantity]);
+
   const [showmodal, setshowmodal] = useState(false);
   const small_img = document.getElementsByClassName("small_img");
+  const [somme, setSomme] = useState("0")
+
   useEffect(() => {
     indeximage < 0
       ? setindeximage(3)
@@ -47,6 +45,7 @@ const Home = () => {
       ? setindeximage(0)
       : small_img[indeximage].classList.add("small_img_effect");
   });
+  
   const removeEffect = () => {
     indeximage < 0
       ? setindeximage(3)
@@ -57,6 +56,8 @@ const Home = () => {
 
   return (
     <div className="home">
+
+      
       {/*NavBar*/}
 
       <nav>
@@ -104,7 +105,7 @@ const Home = () => {
         <div className="right_nav">
           <div className="cart_nav_drop">
             <div className="cart_icon">
-              {addCart ? <span>{quantity}</span> : null}
+              {addCart ? <span>{somme}</span> : null}
 
               <img
                 src={cart}
@@ -118,7 +119,7 @@ const Home = () => {
                 <div>
                   <h4>Cart</h4>
                 </div>
-                {addCart && quantity > 0 ? (
+                {addCart && somme > 0 ? (
                   <div className="non_empty_cart cart_drop_cont">
                     <div className="cart_product">
                       <img src={image_product_1} alt="" />
@@ -127,15 +128,15 @@ const Home = () => {
                           Fall Limited Edition Sneakers{" "}
                         </span>
                         <span>
-                          $125.00 x <span id="quantity">{quantity}</span>{" "}
-                          <span id="total_price">${quantity * 125.0}</span>
+                          $125.00 x <span id="quantity">{somme}</span>{" "}
+                          <span id="total_price">${somme * 125.0}</span>
                         </span>
                       </div>
                       <img
                         src={deletee}
                         alt=""
                         id="delete"
-                        onClick={() => setquantity(0)}
+                        onClick={() => setSomme(0)}
                       />
                     </div>
                     <button id="checkout">Checkout</button>
@@ -285,7 +286,9 @@ const Home = () => {
             </div>
             <button
               className="add_button"
-              onClick={() => (quantity > 0 ? setaddCart(true) : null)}
+              onClick={() =>((quantity > 0 ? setaddCart(true) : null),(setSomme(quantity),setquantity(0)))
+                
+              }
             >
               {" "}
               <img src={cart} alt="" /> <h3>Add to cart</h3>{" "}
